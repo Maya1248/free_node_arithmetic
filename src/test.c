@@ -14,7 +14,6 @@ int main() {
 
 	diagnostics(add_test);
 	print_branch_digit(add_test);
-	print_branch_diagnostic(add_test);
 
 	free_all_nodes(head1);
 	free_all_nodes(head2);
