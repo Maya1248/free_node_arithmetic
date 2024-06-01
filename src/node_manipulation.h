@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+#endif
 
 
 typedef struct tmp {
@@ -137,5 +137,3 @@ int get_branch_length(node* head) {
     }
     return counter;
 }
-
-#endif

@@ -1,12 +1,13 @@
 
-#ifndef NODE_ARITHMETIC_H
-#define NODE_ARITHMETIC_H
+#ifndef NODE_MANIPULATION_H
+#define NODE_MANIPULATION_H
 
 #include "node_manipulation.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
+#endif
 
 
 node* generate_null_number(int length) {
@@ -62,4 +63,3 @@ node* ADD(node* head1, node* head2, int length) { // For starters, assume they a
     return result;
 }
 
-#endif
