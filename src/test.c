@@ -13,7 +13,8 @@ int main() {
 	node* add_test = ADD(head1, head2, get_branch_length(head1));
 
 	diagnostics(add_test);
-	print_branch(add_test);
+	print_branch_digit(add_test);
+	print_branch_diagnostic(add_test);
 
 	free_all_nodes(head1);
 	free_all_nodes(head2);

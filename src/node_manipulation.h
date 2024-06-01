@@ -58,7 +58,7 @@ void free_node(node* temp) { // close off the neighbouring pointers, wipe the cu
     free(temp);
 }
 
-void print_branch(node* head) {
+void print_branch_digit(node* head) {
     printf("\n----------\n");
     
     node* tmp = head;
@@ -74,6 +74,19 @@ void print_branch(node* head) {
     }
     printf("\n----------\n");
     printf("[*] Printing branch complete.\n");
+}
+
+void print_branch_diagnostic(node* head) {
+    printf("\n----------\n");
+
+    node* tmp = head;
+
+    while (tmp != NULL) {
+        printf("%d", tmp->digit);
+        tmp = tmp->right;
+    }
+
+    printf("\n----------\n");
 }
 
 void diagnostics(node* head) {
