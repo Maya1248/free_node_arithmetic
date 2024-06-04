@@ -62,10 +62,15 @@ void print_branch_digit(node* head) {
     printf("\n----------\n");
     
     node* tmp = head;
-
+    
+    int preFillZeroCheck = 1;
     while (tmp != NULL) {
-        if (tmp == head && head->digit == 0) {
+        if (preFillZeroCheck == 1 && head->digit == 0) {
             //printf("%d", tmp->digit);
+            tmp = tmp->right;
+        } else if (preFillZeroCheck == 1 && head->digit != 0) {
+            preFillZeroCheck = 0;
+            printf("%d", tmp->digit);
             tmp = tmp->right;
         } else {
             printf("%d", tmp->digit);
@@ -106,24 +111,46 @@ void diagnostics(node* head) {
     printf("[*] Basic diagnostics complete, no breaks found.\n");
 }
 
-node* create_branch() {
+node* create_branch(int length, int zeroPreFill) {
 	int tmp = -1;
-	int count = -1;
-
+	int count = length;
+    /*
     while (count < 1 || count > 10) {
         printf("Digit count: ");
 	    scanf("%d", &count);
     }
-
+    */
 	// safeguards.
-	
+	/*
     while (tmp < 0 || tmp > 9) {
         printf("\n> ");
 	    scanf("%d", &tmp);
     }
+    */
 	
-	node* head = create_head(tmp);
-	node* tempNode = head;
+    node* head;
+    node* tempNode;
+	
+    if (zeroPreFill != 0) { // create head according to zero prefill
+        head = create_head(0);
+        tempNode = head;
+    }
+    for (int i=0; i<zeroPreFill-1; i++) { // fill out the zeroes
+        create_and_link_node(0, tempNode, NULL);
+        tempNode = tempNode->right;
+    } // all of this will never execute if zeroPreFill == 0
+
+    while (tmp < 0 || tmp > 9) {
+        printf("\n> ");
+	    scanf("%d", &tmp);
+    }
+    if (zeroPreFill == 0) {
+        head = create_head(tmp);
+        tempNode = head;
+    } else {
+        create_and_link_node(tmp, tempNode, NULL);
+        tempNode = tempNode->right;
+    }
 
 	for (int i=0; i<count-1; i++) {
 

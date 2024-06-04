@@ -1,0 +1,3 @@
+- choose 2 lengths
+- pick a bigger one
+- fill out the smaller one with 0s
