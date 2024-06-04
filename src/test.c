@@ -31,11 +31,10 @@ int main() {
 	node* add_test = ADD(head1, head2, get_branch_length(head1));
 
 	diagnostics(add_test);
-	print_branch_digit(add_test);
-	//print_branch_diagnostic(add_test);
-
-	print_branch_digit(head1);
-	print_branch_digit(head2);
+	//print_branch_digit(add_test);
+	print_branch_diagnostic(add_test);
+	print_branch_diagnostic(head1);
+	print_branch_diagnostic(head2);
 
 	free_all_nodes(head1);
 	free_all_nodes(head2);
