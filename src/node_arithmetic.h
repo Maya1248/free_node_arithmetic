@@ -63,3 +63,6 @@ node* ADD(node* head1, node* head2, int length) { // For starters, assume they a
     return result;
 }
 
+node* SUBTRACT(node* head1, node* head2, int length) {
+    
+}
