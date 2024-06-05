@@ -17,6 +17,11 @@ int main() {
 	node* head1;
 	node* head2;
 
+	if (l1 < 1 || l2 < 1) {
+		printf("[-] L1 and L2 must be bigger than 1\n");
+		return 0;
+	}
+
 	if (l1 > l2) {
 		head1 = create_branch(l1, 0);
 		head2 = create_branch(l2, l1-l2); 
@@ -31,6 +36,8 @@ int main() {
 	node* add_test = ADD(head1, head2, get_branch_length(head1));
 
 	diagnostics(add_test);
+	diagnostics(head1);
+	diagnostics(head2);
 	//print_branch_digit(add_test);
 	print_branch_diagnostic(add_test);
 	print_branch_diagnostic(head1);
