@@ -30,6 +30,10 @@ node* ADD(node* head1, node* head2, int length) { // For starters, assume they a
     node* tmp1 = head1;
     node* tmp2 = head2;
 
+    // Positive-negative compatibility solution
+    
+
+
     while (tmp1->right != NULL) {
         tmp1 = tmp1->right;
         tmp2 = tmp2->right;
@@ -62,7 +66,7 @@ node* ADD(node* head1, node* head2, int length) { // For starters, assume they a
 
     return result;
 }
-
+/*
 node* SUBTRACT(node* head1, node* head2, int length) {
     
-}
+}*/
