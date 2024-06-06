@@ -8,29 +8,37 @@
 int main() {
 
 	int l1,l2;
+	char neg_pos1, neg_pos2;
 
 	printf("L1: ");
 	scanf("%d", &l1);
 	printf("L2: ");
 	scanf("%d", &l2);
+	printf("Num1 negative/positive? (-1 | 0): ");
+	scanf("%d", &neg_pos1);
+	printf("Num2 negative/positive? (-1 | 0): ");
+	scanf("%d", &neg_pos2);
+
+
+	// safeguards
+	if (l1 < 1 || l2 < 1) {
+		printf("[-] L1 and L2 must be bigger than 1\n");
+		return -1;
+	}
+
 
 	node* head1;
 	node* head2;
 
-	if (l1 < 1 || l2 < 1) {
-		printf("[-] L1 and L2 must be bigger than 1\n");
-		return 0;
-	}
-
 	if (l1 > l2) {
-		head1 = create_branch(l1, 0);
-		head2 = create_branch(l2, l1-l2); 
+		head1 = create_branch(l1, 0, 0);
+		head2 = create_branch(l2, l1-l2, 0); 
 	} else if (l1 < l2) {
-		head1 = create_branch(l1, l2-l1);
-		head2 = create_branch(l2, 0); 
+		head1 = create_branch(l1, l2-l1, 0);
+		head2 = create_branch(l2, 0, 0); 
 	} else {
-		head1 = create_branch(l1, 0);
-		head2 = create_branch(l2, 0); 
+		head1 = create_branch(l1, 0, 0);
+		head2 = create_branch(l2, 0, 0); 
 	}
 	
 	node* add_test = ADD(head1, head2, get_branch_length(head1));

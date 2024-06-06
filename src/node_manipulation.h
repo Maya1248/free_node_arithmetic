@@ -7,11 +7,15 @@
 
 #endif
 
+typedef struct tmp {
+    char negative_integer;
+} metaData;
 
 typedef struct tmp {
 	char digit; // highest should be 9
 	struct tmp *left;
 	struct tmp *right;
+    struct metaData *data;
 } node;
 
 
@@ -21,18 +25,23 @@ void create_and_link_node(char value, node* leftLink, node* rightLink) {
     newNode->left = leftLink;
     newNode->right = rightLink;
     newNode->digit = value;
+    newNode->data = NULL;
 
     if (leftLink != NULL) leftLink->right = newNode;
     if (rightLink != NULL) rightLink->left = newNode;
 
 }
 
-node* create_head(char value) {
+node* create_head(char value, char meta_negative) {
     node* head = (node* ) calloc(1, sizeof(node));
+    metaData* data = (metaData* ) calloc(1, sizeof(metaData));
 
     head->left = NULL;
     head->right = NULL;
     head->digit = value;
+    head->data = data;
+
+    data->negative_integer = meta_negative;
 
     return head;
 }
@@ -111,7 +120,7 @@ void diagnostics(node* head) {
     printf("[*] Basic diagnostics complete, no breaks found.\n");
 }
 
-node* create_branch(int length, int zeroPreFill) {
+node* create_branch(int length, int zeroPreFill, char meta_negative) {
 	int tmp = -1;
 	int count = length;
     /*
@@ -132,7 +141,7 @@ node* create_branch(int length, int zeroPreFill) {
     node* tempNode;
 	
     if (zeroPreFill != 0) { // create head according to zero prefill
-        head = create_head(0);
+        head = create_head(0, meta_negative);
         tempNode = head;
     }
     for (int i=0; i<zeroPreFill-1; i++) { // fill out the zeroes
@@ -145,7 +154,7 @@ node* create_branch(int length, int zeroPreFill) {
 	    scanf("%d", &tmp);
     }
     if (zeroPreFill == 0) {
-        head = create_head(tmp);
+        head = create_head(tmp, meta_negative);
         tempNode = head;
     } else {
         create_and_link_node(tmp, tempNode, NULL);

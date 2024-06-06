@@ -11,7 +11,7 @@
 
 
 node* generate_null_number(int length) {
-    node* head = create_head(0);
+    node* head = create_head(0, 0);
     node* tmp = head;
     
     for (int i=1; i<length; i++) {
@@ -29,10 +29,6 @@ node* ADD(node* head1, node* head2, int length) { // For starters, assume they a
     node* tmp_res = result->right; // extra space.
     node* tmp1 = head1;
     node* tmp2 = head2;
-
-    // Positive-negative compatibility solution
-    
-
 
     while (tmp1->right != NULL) {
         tmp1 = tmp1->right;
