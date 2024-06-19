@@ -9,6 +9,7 @@
 
 typedef struct tmp {
     char negative_integer;
+    unsigned long digit_count;
 } metaData;
 
 typedef struct tmp {
@@ -48,6 +49,10 @@ node* create_head(char value, char meta_negative) {
 
 void free_all_nodes(node* head) {
     
+    metaData* data = head->data;
+    free(data);
+    printf("[*] Meta data freed.\n");
+
     while (head->right != NULL) {
         free(head->left);
         head = head->right;
@@ -94,7 +99,13 @@ void print_branch_diagnostic(node* head) {
     printf("\n----------\n");
 
     node* tmp = head;
-
+    metaData* data = head->data;
+    
+    if (data->negative_integer == 0) {
+        printf("+");
+    } else {
+        printf("-");
+    }
     while (tmp != NULL) {
         printf("%d", tmp->digit);
         tmp = tmp->right;
