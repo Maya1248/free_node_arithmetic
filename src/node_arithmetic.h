@@ -22,113 +22,6 @@ node* generate_null_number(int length) {
     return head;
 }
 
-node* meta_handler(node* head1, node* head2, int length, char operation) {
-    metaData* data1 = head1->data;
-    metaData* data2 = head2->data;
-
-    node* result;
-    metaData* data_result;
-
-    switch (operation) {
-        case '+':
-            if (data1->negative_integer == 0 && data2->negative_integer == 0) {
-                result = ADD(head1, head2, length);
-                data_result = result->data;
-                data_result->negative_integer = 0;
-
-            } else if (data1->negative_integer == 0 && data2->negative_integer == -1) {
-                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
-                    result = SUBTRACT(head1, head2, length);
-                    data_result = result->data;
-                    data_result->negative_integer = 0;
-
-                } else {
-                    result = SUBTRACT(head2, head1, length);
-                    data_result = result->data;
-                    data_result->negative_integer = -1;
-
-                }
-                
-            } else if (data1->negative_integer == -1 && data2->negative_integer == 0) { // basically switch them around and repeat as previous elseif did it, then negate result
-                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
-                    result = SUBTRACT(head1, head2, length);
-                    data_result = result->data;
-                    data_result->negative_integer = 0;
-
-                } else {
-                    result = SUBTRACT(head2, head1, length);
-                    data_result = result->data;
-                    data_result->negative_integer = -1;
-
-                }
-
-                if (data_result->negative_integer == -1) {
-                    data_result->negative_integer = 0;
-                } else {
-                    data_result->negative_integer = -1;
-                }
-
-            } else if (data1->negative_integer == -1 && data2->negative_integer == -1) {
-                result = ADD(head1, head2, length);
-                data_result = result->data;
-                data_result->negative_integer = -1;
-            }
-
-            break;
-        
-        case '-':
-            if (data1->negative_integer == 0 && data2->negative_integer == 0) {
-                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
-                    result = SUBTRACT(head1, head2, length);
-                    data_result = result->data;
-                    data_result->negative_integer = 0;
-
-                } else {
-                    result = SUBTRACT(head2, head1, length);
-                    data_result = result->data;
-                    data_result->negative_integer = -1;
-                }
-
-            } else if (data1->negative_integer == 0 && data2->negative_integer == -1) {
-                result = ADD(head1, head2, length);
-                data_result = result->data;
-                data_result->negative_integer = 0;
-
-            } else if (data1->negative_integer == -1 && data2->negative_integer == 0) {
-                result = ADD(head1, head2, length);
-                data_result = result->data;
-                data_result->negative_integer = -1;
-
-            } else if (data1-> negative_integer == -1 && data2->negative_integer == -1) {
-                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
-                    result = SUBTRACT(head1, head2, length);
-                    data_result = result->data;
-                    data_result->negative_integer = 0;
-
-                } else {
-                    result = SUBTRACT(head2, head1, length);
-                    data_result = result->data;
-                    data_result->negative_integer = -1;
-
-                }
-
-                if (data_result->negative_integer == -1) {
-                    data_result->negative_integer = 0;
-                } else {
-                    data_result->negative_integer = -1;
-                }
-            }
-
-            break;
-        default:
-            printf("[-] Invalid operation!\n");
-            return NULL;
-            break;
-    }
-
-    return result;
-}
-
 node* ADD(node* head1, node* head2, int length) { 
     node* result = generate_null_number(length+1); // extra space.
     
@@ -230,4 +123,111 @@ int isBiggerThanOrEqualTo(node* head1, node* head2) { // it ignores negative/pos
     }
 
     return 0;
+}
+
+node* meta_handler(node* head1, node* head2, int length, char operation) {
+    metaData* data1 = head1->data;
+    metaData* data2 = head2->data;
+
+    node* result;
+    metaData* data_result;
+
+    switch (operation) {
+        case '+':
+            if (data1->negative_integer == 0 && data2->negative_integer == 0) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = 0;
+
+            } else if (data1->negative_integer == 0 && data2->negative_integer == -1) {
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+
+                }
+                
+            } else if (data1->negative_integer == -1 && data2->negative_integer == 0) { // basically switch them around and repeat as previous elseif did it, then negate result
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+                    
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+
+                }
+                
+                if (data_result->negative_integer == -1) {
+                    data_result->negative_integer = 0;
+                } else {
+                    data_result->negative_integer = -1;
+                }
+
+            } else if (data1->negative_integer == -1 && data2->negative_integer == -1) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = -1;
+            }
+
+            break;
+        
+        case '-':
+            if (data1->negative_integer == 0 && data2->negative_integer == 0) {
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+                }
+
+            } else if (data1->negative_integer == 0 && data2->negative_integer == -1) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = 0;
+
+            } else if (data1->negative_integer == -1 && data2->negative_integer == 0) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = -1;
+
+            } else if (data1-> negative_integer == -1 && data2->negative_integer == -1) {
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+
+                }
+
+                if (data_result->negative_integer == -1) {
+                    data_result->negative_integer = 0;
+                } else {
+                    data_result->negative_integer = -1;
+                }
+            }
+
+            break;
+        default:
+            printf("[-] Invalid operation!\n");
+            return NULL;
+            break;
+    }
+
+    return result;
 }

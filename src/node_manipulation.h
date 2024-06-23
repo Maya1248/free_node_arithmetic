@@ -7,18 +7,26 @@
 
 #endif
 
-typedef struct tmp {
+typedef struct tmp1 {
     char negative_integer;
     unsigned long digit_count;
 } metaData;
 
-typedef struct tmp {
+typedef struct tmp2 {
 	char digit; // highest should be 9
-	struct tmp *left;
-	struct tmp *right;
-    struct metaData *data;
+	struct tmp2 *left;
+	struct tmp2 *right;
+    struct tmp1 *data;
 } node;
 
+unsigned long get_branch_length(node* head) {
+    unsigned long counter = 0;
+    while (head != NULL) {
+        counter++;
+        head = head->right;
+    }
+    return counter;
+}
 
 void create_and_link_node(char value, node* leftLink, node* rightLink) {
     node* newNode = (node* ) calloc(1, sizeof(node));
@@ -106,6 +114,7 @@ void print_branch_diagnostic(node* head) {
     } else {
         printf("-");
     }
+
     while (tmp != NULL) {
         printf("%d", tmp->digit);
         tmp = tmp->right;
@@ -160,7 +169,7 @@ node* create_branch(int length, int zeroPreFill, char meta_negative) {
         tempNode = tempNode->right;
     } // all of this will never execute if zeroPreFill == 0
 
-    while (tmp < 0 || tmp > 9) {
+    while (tmp < 1 || tmp > 9) {
         printf("\n> ");
 	    scanf("%d", &tmp);
     }
@@ -189,11 +198,4 @@ node* create_branch(int length, int zeroPreFill, char meta_negative) {
 	return head;
 }
 
-int get_branch_length(node* head) {
-    int counter = 0;
-    while (head != NULL) {
-        counter++;
-        head = head->right;
-    }
-    return counter;
-}
+
