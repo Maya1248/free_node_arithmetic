@@ -51,19 +51,26 @@ int main() {
 	data1->digit_count = get_branch_length(head1);
 	data2->digit_count = get_branch_length(head2);
 
-	node* add_test = ADD(head1, head2, get_branch_length(head1));
+	node* test = meta_handler(head1, head2, data1->digit_count, '+');
+	//node* add_test = ADD(head1, head2, get_branch_length(head1));
 
-	diagnostics(add_test);
+	if (test == NULL) {
+		free_all_nodes(head1);
+		free_all_nodes(head2);
+		return -1;
+	}
+
+	diagnostics(test);
 	diagnostics(head1);
 	diagnostics(head2);
 	//print_branch_digit(add_test);
-	print_branch_diagnostic(add_test);
+	print_branch_diagnostic(test);
 	print_branch_diagnostic(head1);
 	print_branch_diagnostic(head2);
 
 	free_all_nodes(head1);
 	free_all_nodes(head2);
-	free_all_nodes(add_test);
+	free_all_nodes(test);
 
 	return 0;
 }

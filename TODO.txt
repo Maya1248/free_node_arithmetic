@@ -1,8 +1,8 @@
 - Kind of just.. Re write the includes and make them readable
 - Add subtraction
 
-- Modify structure, allow negative numbers to exist
-- Modify ADD() to allow negative number processing
-- Add SUBTRACT() to handle subtraction and modify for negative number processing
+- Modify structure, allow negative numbers to exist /DONE
+- Modify ADD() to allow negative number processing /DONE
+- Add SUBTRACT() to handle subtraction and modify for negative number processing /IN PROCESS
 
 ADD() and SUBTRACT() may call each other depending on how numbers are processed

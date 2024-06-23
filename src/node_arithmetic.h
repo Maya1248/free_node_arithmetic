@@ -37,7 +37,7 @@ node* meta_handler(node* head1, node* head2, int length, char operation) {
                 data_result->negative_integer = 0;
 
             } else if (data1->negative_integer == 0 && data2->negative_integer == -1) {
-                if (data1->digit_count >= data2->digit_count) {
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
                     result = SUBTRACT(head1, head2, length);
                     data_result = result->data;
                     data_result->negative_integer = 0;
@@ -49,8 +49,80 @@ node* meta_handler(node* head1, node* head2, int length, char operation) {
 
                 }
                 
+            } else if (data1->negative_integer == -1 && data2->negative_integer == 0) { // basically switch them around and repeat as previous elseif did it, then negate result
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+
+                }
+
+                if (data_result->negative_integer == -1) {
+                    data_result->negative_integer = 0;
+                } else {
+                    data_result->negative_integer = -1;
+                }
+
+            } else if (data1->negative_integer == -1 && data2->negative_integer == -1) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = -1;
             }
 
+            break;
+        
+        case '-':
+            if (data1->negative_integer == 0 && data2->negative_integer == 0) {
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+                }
+
+            } else if (data1->negative_integer == 0 && data2->negative_integer == -1) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = 0;
+
+            } else if (data1->negative_integer == -1 && data2->negative_integer == 0) {
+                result = ADD(head1, head2, length);
+                data_result = result->data;
+                data_result->negative_integer = -1;
+
+            } else if (data1-> negative_integer == -1 && data2->negative_integer == -1) {
+                if (isBiggerThanOrEqualTo(head1, head2) == 0) {
+                    result = SUBTRACT(head1, head2, length);
+                    data_result = result->data;
+                    data_result->negative_integer = 0;
+
+                } else {
+                    result = SUBTRACT(head2, head1, length);
+                    data_result = result->data;
+                    data_result->negative_integer = -1;
+
+                }
+
+                if (data_result->negative_integer == -1) {
+                    data_result->negative_integer = 0;
+                } else {
+                    data_result->negative_integer = -1;
+                }
+            }
+
+            break;
+        default:
+            printf("[-] Invalid operation!\n");
+            return NULL;
             break;
     }
 
@@ -99,10 +171,33 @@ node* ADD(node* head1, node* head2, int length) {
 }
 
 node* SUBTRACT(node* head1, node* head2, int length) {
-    node* result = generate_null_number(length);
-
-    metaData* data1 = head1->data;
-    metaData* data2 = head2->data;
+    node* result = generate_null_number(length+1);
 
     
+}
+
+int isBiggerThanOrEqualTo(node* head1, node* head2) { // it ignores negative/positive notation, all numbers are assumed positive in this function
+    metaData* data1;
+    metaData* data2;
+
+    data1 = head1->data;
+    data2 = head2->data;
+
+    // real quick check
+    if (data1->digit_count > data2->digit_count) {
+        return 0;
+    } else if (data1->digit_count < data2->digit_count) {
+        return -1;
+    }
+
+    while (head1->right != NULL) { // if it comes to here, they inherently have same digit count
+        if (head1->digit < head2->digit) {
+            return -1;
+        }
+
+        head1 = head1->right;
+        head2 = head2->right;
+    }
+
+    return 0;
 }
