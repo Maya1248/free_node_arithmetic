@@ -170,10 +170,40 @@ node* ADD(node* head1, node* head2, int length) {
     return result;
 }
 
-node* SUBTRACT(node* head1, node* head2, int length) {
-    node* result = generate_null_number(length+1);
+node* SUBTRACT(node* head1, node* head2, int length) { // meta handler has ENSURED that this function only ever recieves head1 BIGGER OR EQUAL TO head2
+    node* result = generate_null_number(length);
 
-    
+    // Prepare
+    node* tmp_res = result;
+    node* tmp1 = head1;
+    node* tmp2 = head2;
+
+    while (tmp1->right != NULL) {
+        tmp1 = tmp1->right;
+        tmp2 = tmp2->right;
+        tmp_res = tmp_res->right;
+    }
+
+    char buffer=0, carry=0;
+    while (tmp1 != NULL) {
+        if (tmp1->digit - tmp2->digit - carry < 0) {
+            buffer = tmp1->digit+10 - tmp2->digit - carry;
+            carry = 1;
+        } else {
+            buffer = tmp1->digit - tmp2->digit - carry;
+            carry = 0;
+        }
+
+        tmp_res->digit = buffer;
+
+        // Move on towards next digit.
+        tmp_res = tmp_res->left;
+        tmp1 = tmp1->left;
+        tmp2 = tmp2->left;
+        buffer = 0;
+    }
+
+    return result;
 }
 
 int isBiggerThanOrEqualTo(node* head1, node* head2) { // it ignores negative/positive notation, all numbers are assumed positive in this function
